@@ -4,7 +4,20 @@ class AnalyticsManager {
     this.analyticsData = this.loadAnalytics();
     this.currentPage = this.getCurrentPage();
     this.sessionId = this.generateSessionId();
+    this.serverEnabled = this.checkServerAvailability();
     this.trackPageView();
+  }
+
+  // Check if backend server is available
+  checkServerAvailability() {
+    fetch('/api/health', { method: 'GET' })
+      .then(r => r.ok ? true : false)
+      .catch(() => false)
+      .then(available => {
+        this.serverEnabled = available;
+        if (available) console.log('✅ Backend server connected');
+      });
+    return false;
   }
 
   // Generate unique session ID
@@ -49,6 +62,26 @@ class AnalyticsManager {
     localStorage.setItem('ega_analytics', JSON.stringify(this.analyticsData));
   }
 
+  // Send analytics to backend server
+  async sendToServer(eventType, page, eventData = null) {
+    if (!this.serverEnabled) return;
+    
+    try {
+      await fetch('/api/analytics/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: this.sessionId,
+          page: page,
+          event_type: eventType,
+          event_data: eventData
+        })
+      });
+    } catch (error) {
+      console.log('📭 Backend unavailable, using localStorage only');
+    }
+  }
+
   // Track page view
   trackPageView() {
     const page = this.currentPage;
@@ -63,6 +96,9 @@ class AnalyticsManager {
     });
     this.saveAnalytics();
     
+    // Send to server if available
+    this.sendToServer('page_view', page);
+    
     console.log(`📊 Page tracked: ${page} (Total: ${this.analyticsData.pageViews[page]})`);
   }
 
@@ -76,6 +112,13 @@ class AnalyticsManager {
       sessionId: this.sessionId
     });
     this.saveAnalytics();
+    
+    // Send to server if available
+    this.sendToServer('event', this.currentPage, {
+      event_name: eventName,
+      event_data: eventData
+    });
+    
     console.log(`📌 Event tracked: ${eventName}`, eventData);
   }
 

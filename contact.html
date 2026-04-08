@@ -208,20 +208,56 @@
 <script src="scripts.js"></script>
 <script src="analytics.js"></script>
 <script>
-function submitContactForm(event) {
+async function submitContactForm(event) {
   event.preventDefault();
+  const btn = event.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = '⏳ Sending...';
+  
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const subject = document.getElementById('subject').value;
+  const message = document.getElementById('message').value;
   
-  // Track form submission
-  analytics.trackFormSubmit('Contact Form');
-  
-  // Show success message
-  alert(`✅ Thank you ${name}! Your message has been sent. We'll get back to you at ${email} soon.`);
-  
-  // Reset form
-  event.target.reset();
+  try {
+    // Send to backend API
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        subject: subject,
+        message: message
+      })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      // Track form submission in analytics
+      if (typeof analytics !== 'undefined') {
+        analytics.trackFormSubmit('Contact Form');
+      }
+      
+      // Show success message
+      alert(`✅ Thank you ${name}! Your message has been sent. We'll get back to you at ${email} soon.`);
+      
+      // Reset form
+      event.target.reset();
+      btn.textContent = 'Send Message';
+      btn.disabled = false;
+    } else {
+      throw new Error(result.error || 'Failed to send message');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert(`❌ Error: ${error.message}. Please try again.`);
+    btn.textContent = 'Send Message';
+    btn.disabled = false;
+  }
 }
 </script>
 </body>
