@@ -1,11 +1,28 @@
 {
-  "buildCommand": "echo 'Static site - no build needed'",
+  "buildCommand": "pip install -r requirements.txt",
   "outputDirectory": ".",
-  "public": false,
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/EGA_Website_index.html"
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.9"
     }
-  ]
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(?!api)(.*\\.(?:html|css|js|json|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot)?)$",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/home.html"
+    }
+  ],
+  "env": {
+    "FLASK_ENV": "production",
+    "PYTHONUNBUFFERED": "1",
+    "ADMIN_PASSWORD": "@ADMIN_PASSWORD"
+  }
 }

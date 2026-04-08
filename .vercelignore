@@ -1,0 +1,23 @@
+# Vercel deployment ignore file
+# These files/folders won't be deployed to Vercel
+
+.git
+.gitignore
+.env
+.env.local
+.env.*.local
+node_modules
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+*.egg-info
+.DS_Store
+*.db
+.git/
+README.md
+BACKEND_SETUP.md
+*.md
+.vscode
+.idea
