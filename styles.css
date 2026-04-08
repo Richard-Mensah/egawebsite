@@ -35,6 +35,8 @@ nav {
 .nav-links { display: flex; gap: 2rem; list-style: none; }
 .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; font-weight: 400; letter-spacing: 0.3px; transition: color 0.2s; }
 .nav-links a:hover { color: var(--gold); }
+.nav-links a.active { color: var(--gold); }
+.nav-links.show-mobile { display:flex; flex-direction:column; position:fixed; top:70px; left:0; right:0; background:rgba(13,27,62,0.98); padding:1.5rem 8%; gap:1rem; z-index:999; border-bottom:1px solid rgba(201,168,76,0.3); }
 .nav-cta {
   background: var(--gold); color: var(--navy);
   padding: 9px 22px; border-radius: 4px;
@@ -43,7 +45,12 @@ nav {
 }
 .nav-cta:hover { background: var(--gold-light); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-.hamburger span { width: 24px; height: 2px; background: var(--gold); display: block; }
+.hamburger span { width: 24px; height: 2px; background: var(--gold); display: block; transition: transform 0.25s ease, opacity 0.2s ease; }
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.back-to-top { position: fixed; right: 24px; bottom: 24px; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.18); background: rgba(13,27,62,0.95); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; opacity: 0; transform: translateY(12px); transition: opacity 0.25s ease, transform 0.25s ease; z-index: 1100; }
+.back-to-top.visible { opacity: 1; transform: translateY(0); }
 
 /* ── HERO ── */
 #home {
