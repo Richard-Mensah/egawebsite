@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDGs | EGA Mentorship International</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <span>EGA Mentorship International</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="sdgs.html" class="active">SDGs</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Join Us</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <h1>UN Sustainable Development Goals</h1>
+  <p>Driving Impact Across All 17 Goals</p>
+</section>
+
+<!-- CONTENT -->
+<section class="page-content">
+  <div class="container">
+    <p style="margin-bottom: 2rem; font-size: 1.1rem;">EGA Mentorship International is committed to supporting projects and initiatives aligned with all 17 UN Sustainable Development Goals. Our programs create positive impact on global development challenges.</p>
+    
+    <div class="sdg-grid">
+      <div class="sdg-card">1️⃣ <strong>No Poverty</strong><br>Economic empowerment & opportunity</div>
+      <div class="sdg-card">2️⃣ <strong>Zero Hunger</strong><br>Food security & nutrition</div>
+      <div class="sdg-card">3️⃣ <strong>Good Health</strong><br>Health & wellness initiatives</div>
+      <div class="sdg-card">4️⃣ <strong>Quality Education</strong><br>Learning & skill development</div>
+      <div class="sdg-card">5️⃣ <strong>Gender Equality</strong><br>Women empowerment & rights</div>
+      <div class="sdg-card">6️⃣ <strong>Clean Water</strong><br>Sanitation & water access</div>
+      <div class="sdg-card">7️⃣ <strong>Affordable Energy</strong><br>Renewable energy solutions</div>
+      <div class="sdg-card">8️⃣ <strong>Decent Work</strong><br>Economic growth & employment</div>
+      <div class="sdg-card">9️⃣ <strong>Industry & Innovation</strong><br>Infrastructure development</div>
+      <div class="sdg-card">🔟 <strong>Reduced Inequalities</strong><br>Inclusive development</div>
+      <div class="sdg-card">1️⃣1️⃣ <strong>Sustainable Cities</strong><br>Community development</div>
+      <div class="sdg-card">1️⃣2️⃣ <strong>Responsible Consumption</strong><br>Sustainability practices</div>
+      <div class="sdg-card">1️⃣3️⃣ <strong>Climate Action</strong><br>Environmental protection</div>
+      <div class="sdg-card">1️⃣4️⃣ <strong>Life Below Water</strong><br>Ocean conservation</div>
+      <div class="sdg-card">1️⃣5️⃣ <strong>Life on Land</strong><br>Ecosystem protection</div>
+      <div class="sdg-card">1️⃣6️⃣ <strong>Peace & Justice</strong><br>Peaceful communities</div>
+      <div class="sdg-card">1️⃣7️⃣ <strong>Partnerships</strong><br>Global collaboration</div>
+    </div>
+
+    <div style="margin-top: 3rem; padding: 2rem; background: rgba(201,168,76,0.1); border-radius: 12px;">
+      <h3>Our Approach</h3>
+      <p>We believe that young leaders are key to achieving the SDGs. Through mentorship, training, and project support, we help emerging changemakers develop the skills and networks needed to create sustainable solutions to global challenges.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>EGA Mentorship International</h3>
+      <p>Empowering Global Leaders for a Better World</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 EGA Mentorship International. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .sdg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .sdg-card {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.05));
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transition: transform 0.3s;
+  }
+
+  .sdg-card:hover {
+    transform: translateY(-3px);
+    background: rgba(201,168,76,0.15);
+  }
+
+  .sdg-card strong {
+    color: var(--navy);
+    display: block;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<script src="scripts.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>

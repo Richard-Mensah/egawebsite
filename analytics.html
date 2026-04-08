@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics Dashboard | EGA Mentorship International</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2.5rem;
+    color: var(--navy);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .metric-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    border-left: 4px solid var(--gold);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .metric-label {
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+
+  .chart-container h3 {
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .chart-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .chart-label {
+    width: 150px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .chart-progress {
+    flex: 1;
+    height: 30px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 1rem;
+    position: relative;
+  }
+
+  .chart-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), #d4af37);
+    transition: width 0.5s ease;
+    border-radius: 5px;
+  }
+
+  .chart-value {
+    font-weight: 600;
+    color: var(--navy);
+    min-width: 40px;
+    text-align: right;
+  }
+
+  .activity-log {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .activity-log h3 {
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+
+  .activity-time {
+    font-size: 0.85rem;
+    color: #999;
+  }
+
+  .activity-page {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-dashboard {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+  }
+
+  .btn-dashboard-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .btn-dashboard-primary:hover {
+    background: #d4af37;
+    transform: translateY(-2px);
+  }
+
+  .btn-dashboard-secondary {
+    background: #f0f0f0;
+    color: var(--navy);
+    border: 1px solid #ddd;
+  }
+
+  .btn-dashboard-secondary:hover {
+    background: #e8e8e8;
+  }
+
+  .no-data {
+    text-align: center;
+    color: #999;
+    padding: 2rem;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chart-label {
+      width: 100px;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <span>EGA Mentorship International</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="sdgs.html">SDGs</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Join Us</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ANALYTICS DASHBOARD -->
+<section class="page-section">
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>📊 Analytics Dashboard</h1>
+      <p>Real-time tracking of website performance and user engagement</p>
+    </div>
+
+    <!-- KEY METRICS -->
+    <div class="dashboard-grid" id="metricsContainer">
+      <div class="metric-card">
+        <div class="metric-value" id="totalViews">0</div>
+        <div class="metric-label">Total Page Views</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" id="uniqueSessions">0</div>
+        <div class="metric-label">Unique Sessions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" id="totalEvents">0</div>
+        <div class="metric-label">User Events</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" id="topPage">—</div>
+        <div class="metric-label">Most Visited Page</div>
+      </div>
+    </div>
+
+    <!-- PAGE VIEWS CHART -->
+    <div class="chart-container">
+      <h3>📄 Page Views Breakdown</h3>
+      <div id="pageViewsChart">
+        <p class="no-data">No page view data yet. Start navigating through the site!</p>
+      </div>
+    </div>
+
+    <!-- RECENT ACTIVITY LOG -->
+    <div class="activity-log">
+      <h3>📋 Recent Activity</h3>
+      <div id="activityLog">
+        <p class="no-data">No activity logged yet.</p>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="button-group">
+      <button class="btn-dashboard btn-dashboard-primary" onclick="refreshDashboard()">🔄 Refresh Data</button>
+      <button class="btn-dashboard btn-dashboard-secondary" onclick="exportAnalytics()">📥 Export as CSV</button>
+      <button class="btn-dashboard btn-dashboard-secondary" onclick="clearAnalyticsData()">🗑️ Clear Analytics</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>EGA Mentorship International</h3>
+      <p>Empowering Global Leaders for a Better World</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 EGA Mentorship International. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+<script src="analytics.js"></script>
+<script>
+// Dashboard Functions
+function refreshDashboard() {
+  const report = analytics.getDetailedReport();
+  
+  // Update metrics
+  document.getElementById('totalViews').textContent = report.summary.totalPageViews;
+  document.getElementById('uniqueSessions').textContent = report.summary.uniqueSessions;
+  document.getElementById('totalEvents').textContent = report.summary.totalEvents;
+  
+  // Find top page
+  let topPage = '—';
+  let maxViews = 0;
+  for (const [page, views] of Object.entries(report.summary.pageBreakdown)) {
+    if (views > maxViews) {
+      maxViews = views;
+      topPage = page;
+    }
+  }
+  document.getElementById('topPage').textContent = topPage;
+  
+  // Render page views chart
+  renderPageViewsChart(report.summary.pageBreakdown);
+  
+  // Render activity log
+  renderActivityLog(report.recentActivity);
+}
+
+function renderPageViewsChart(pageViews) {
+  const chartContainer = document.getElementById('pageViewsChart');
+  
+  if (Object.keys(pageViews).length === 0) {
+    chartContainer.innerHTML = '<p class="no-data">No page view data yet.</p>';
+    return;
+  }
+  
+  const maxViews = Math.max(...Object.values(pageViews));
+  let html = '';
+  
+  for (const [page, views] of Object.entries(pageViews)) {
+    const percentWidth = (views / maxViews) * 100;
+    html += `
+      <div class="chart-bar">
+        <div class="chart-label">${page}</div>
+        <div class="chart-progress">
+          <div class="chart-fill" style="width: ${percentWidth}%"></div>
+        </div>
+        <div class="chart-value">${views}</div>
+      </div>
+    `;
+  }
+  
+  chartContainer.innerHTML = html;
+}
+
+function renderActivityLog(activities) {
+  const logContainer = document.getElementById('activityLog');
+  
+  if (activities.length === 0) {
+    logContainer.innerHTML = '<p class="no-data">No activity logged yet.</p>';
+    return;
+  }
+  
+  let html = '';
+  activities.reverse().forEach(activity => {
+    const time = new Date(activity.time).toLocaleTimeString();
+    html += `
+      <div class="activity-item">
+        <div>
+          <div class="activity-page">${activity.page}</div>
+          <div class="activity-time">${time}</div>
+        </div>
+      </div>
+    `;
+  });
+  
+  logContainer.innerHTML = html;
+}
+
+function exportAnalytics() {
+  analytics.exportAsCSV();
+  alert('✅ Analytics exported as CSV!');
+}
+
+function clearAnalyticsData() {
+  if (confirm('⚠️ Are you sure you want to clear all analytics data? This action cannot be undone.')) {
+    analytics.clearAnalytics();
+    refreshDashboard();
+    alert('✅ Analytics cleared successfully!');
+  }
+}
+
+// Initialize dashboard on page load
+window.addEventListener('load', refreshDashboard);
+
+// Refresh every 5 seconds
+setInterval(refreshDashboard, 5000);
+</script>
+</body>
+</html>

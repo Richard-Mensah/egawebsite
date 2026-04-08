@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | EGA Mentorship International</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <span>EGA Mentorship International</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="sdgs.html">SDGs</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="education.html">Education</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Join Us</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <h1>Our Services</h1>
+  <p>Comprehensive Programs for Leadership Development</p>
+</section>
+
+<!-- CONTENT -->
+<section class="page-content">
+  <div class="container">
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>🎓 Mentorship Programs</h3>
+        <p>One-on-one and group mentorship sessions connecting young leaders with experienced professionals across various industries.</p>
+      </div>
+      <div class="service-card">
+        <h3>💼 Leadership Training</h3>
+        <p>Comprehensive workshops and seminars on strategic thinking, emotional intelligence, and organizational leadership.</p>
+      </div>
+      <div class="service-card">
+        <h3>🚀 Entrepreneurship Support</h3>
+        <p>Business development assistance, funding guidance, and pitch coaching for aspiring young entrepreneurs.</p>
+      </div>
+      <div class="service-card">
+        <h3>🌱 Impact Projects</h3>
+        <p>Support for sustainable development projects aligned with the UN Sustainable Development Goals.</p>
+      </div>
+      <div class="service-card">
+        <h3>📚 Knowledge Sharing</h3>
+        <p>Access to resources, webinars, and courses on global issues, innovation, and development.</p>
+      </div>
+      <div class="service-card">
+        <h3>🤝 Network Building</h3>
+        <p>Connection with a global community of leaders, mentors, and changemakers for collaboration and growth.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; padding: 2rem; background: rgba(201,168,76,0.1); border-radius: 12px;">
+      <h3>Why Choose EGA?</h3>
+      <ul style="line-height: 1.8; padding-left: 1.5rem;">
+        <li><strong>Experienced Mentors:</strong> Learn from industry leaders and global experts</li>
+        <li><strong>Global Reach:</strong> Connect with peers and opportunities across 6+ countries</li>
+        <li><strong>Impact Focus:</strong> Work on projects that make a real difference</li>
+        <li><strong>Comprehensive Support:</strong> From training to resources to networking</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>EGA Mentorship International</h3>
+      <p>Empowering Global Leaders for a Better World</p>
+    </div>
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 EGA Mentorship International. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .service-card {
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .service-card h3 {
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .service-card p {
+    color: #666;
+    line-height: 1.6;
+  }
+</style>
+
+<script src="scripts.js"></script>
+<script src="analytics.js"></script>
+</body>
+</html>
