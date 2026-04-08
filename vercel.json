@@ -1,10 +1,6 @@
 {
   "buildCommand": "",
   "outputDirectory": ".",
-  "routes": [
-    {
-      "src": "/(?!.*\\.(?:html|css|js|json|jpg|jpeg|png|gif|svg|ico|woff|woff2|ttf|eot)?)$",
-      "dest": "/home.html"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
