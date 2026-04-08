@@ -201,6 +201,64 @@
     filter: brightness(0.9);
   }
 
+  /* TOOLTIP STYLES */
+  .map-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    max-width: 250px;
+  }
+
+  /* EXPORT BUTTONS */
+  .map-export-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+  }
+
+  .map-export-buttons button {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .map-export-buttons button:hover {
+    background: #b8964c;
+    transform: translateY(-2px);
+  }
+
+  /* HIGHLIGHTED COUNTRIES */
+  .highlighted {
+    stroke: var(--gold) !important;
+    stroke-width: 2 !important;
+    animation: highlight-pulse 1.5s infinite;
+  }
+
+  @keyframes highlight-pulse {
+    0% { filter: brightness(1) drop-shadow(0 0 6px rgba(201,168,76,0.4)); }
+    50% { filter: brightness(1.2) drop-shadow(0 0 12px rgba(201,168,76,0.8)); }
+    100% { filter: brightness(1) drop-shadow(0 0 6px rgba(201,168,76,0.4)); }
+  }
+
   @keyframes pulse {
     0% { opacity: 1; }
     50% { opacity: 0.7; }
@@ -490,59 +548,8 @@
         <p style="color: #666; margin-bottom: 1.5rem;">Interactive map showing EGA's reach and impact intensity across Africa</p>
         <div class="world-map-container">
           <div class="world-map-wrapper">
-            <svg viewBox="0 0 800 600" class="world-map-svg" style="background: #f0f8ff;">
-              <!-- Detailed African Map with proper country shapes -->
-              <g class="continent africa">
-                <!-- Ghana -->
-                <path id="ghana" class="country active-country" d="M350 320 L370 320 L370 340 L365 345 L360 345 L355 340 L350 335 Z" data-country="Ghana" data-youth="1200" data-support="486" data-intensity="5"></path>
-
-                <!-- Nigeria -->
-                <path id="nigeria" class="country active-country" d="M330 300 L350 300 L350 320 L345 325 L340 325 L335 320 L330 315 Z" data-country="Nigeria" data-youth="856" data-support="342" data-intensity="4"></path>
-
-                <!-- Kenya -->
-                <path id="kenya" class="country active-country" d="M390 350 L410 350 L410 370 L405 375 L400 375 L395 370 L390 365 Z" data-country="Kenya" data-youth="434" data-support="178" data-intensity="3"></path>
-
-                <!-- Cameroon -->
-                <path id="cameroon" class="country active-country" d="M310 310 L330 310 L330 330 L325 335 L320 335 L315 330 L310 325 Z" data-country="Cameroon" data-youth="218" data-support="89" data-intensity="2"></path>
-
-                <!-- Rwanda -->
-                <path id="rwanda" class="country active-country" d="M380 340 L390 340 L390 350 L385 355 L380 355 Z" data-country="Rwanda" data-youth="84" data-support="34" data-intensity="2"></path>
-
-                <!-- Uganda -->
-                <path id="uganda" class="country active-country" d="M380 330 L390 330 L390 340 L385 345 L380 345 Z" data-country="Uganda" data-youth="55" data-support="21" data-intensity="1"></path>
-
-                <!-- South Africa -->
-                <path id="southafrica" class="country active-country" d="M350 480 L390 480 L390 500 L385 505 L380 505 L375 500 L370 495 L365 495 L360 500 L355 505 L350 505 Z" data-country="South Africa" data-youth="320" data-support="145" data-intensity="3"></path>
-
-                <!-- Ethiopia -->
-                <path id="ethiopia" class="country active-country" d="M390 280 L420 280 L420 310 L415 315 L410 315 L405 310 L400 305 L395 305 L390 300 Z" data-country="Ethiopia" data-youth="180" data-support="78" data-intensity="2"></path>
-
-                <!-- Tanzania -->
-                <path id="tanzania" class="country active-country" d="M380 370 L400 370 L400 390 L395 395 L390 395 L385 390 L380 385 Z" data-country="Tanzania" data-youth="95" data-support="42" data-intensity="2"></path>
-
-                <!-- Senegal -->
-                <path id="senegal" class="country active-country" d="M250 260 L270 260 L270 280 L265 285 L260 285 L255 280 L250 275 Z" data-country="Senegal" data-youth="65" data-support="28" data-intensity="1"></path>
-
-                <!-- Mali -->
-                <path id="mali" class="country active-country" d="M270 240 L310 240 L310 260 L305 265 L300 265 L295 260 L290 255 L285 255 L280 260 L275 265 L270 265 Z" data-country="Mali" data-youth="45" data-support="19" data-intensity="1"></path>
-
-                <!-- Other African countries (base shapes) -->
-                <path class="country inactive" d="M290 280 L310 280 L310 300 L305 305 L300 305 L295 300 L290 295 Z"></path>
-                <path class="country inactive" d="M310 330 L330 330 L330 350 L325 355 L320 355 L315 350 L310 345 Z"></path>
-                <path class="country inactive" d="M330 350 L350 350 L350 370 L345 375 L340 375 L335 370 L330 365 Z"></path>
-                <path class="country inactive" d="M350 370 L370 370 L370 390 L365 395 L360 395 L355 390 L350 385 Z"></path>
-                <path class="country inactive" d="M370 390 L390 390 L390 410 L385 415 L380 415 L375 410 L370 405 Z"></path>
-                <path class="country inactive" d="M390 410 L410 410 L410 430 L405 435 L400 435 L395 430 L390 425 Z"></path>
-                <path class="country inactive" d="M410 430 L430 430 L430 450 L425 455 L420 455 L415 450 L410 445 Z"></path>
-                <path class="country inactive" d="M430 450 L450 450 L450 470 L445 475 L440 475 L435 470 L430 465 Z"></path>
-                <path class="country inactive" d="M450 470 L470 470 L470 490 L465 495 L460 495 L455 490 L450 485 Z"></path>
-                <path class="country inactive" d="M470 490 L490 490 L490 510 L485 515 L480 515 L475 510 L470 505 Z"></path>
-                <path class="country inactive" d="M490 510 L510 510 L510 530 L505 535 L500 535 L495 530 L490 525 Z"></path>
-                <path class="country inactive" d="M510 530 L530 530 L530 550 L525 555 L520 555 L515 550 L510 545 Z"></path>
-                <path class="country inactive" d="M530 550 L550 550 L550 570 L545 575 L540 575 L535 570 L530 565 Z"></path>
-                <path class="country inactive" d="M550 570 L570 570 L570 590 L565 595 L560 595 L555 590 L550 585 Z"></path>
-              </g>
-            </svg>
+            <div id="africaMap" class="world-map-svg"></div>
+          </div>
           </div>
           </div>
 
@@ -850,41 +857,9 @@
 
   // World map interaction
   function initializeWorldMap() {
-    const countries = document.querySelectorAll('.active-country');
-
-    countries.forEach(country => {
-      const countryId = country.id;
-      const data = countryData[countryId];
-      if (data) {
-        // Apply intensity class
-        country.classList.add(`intensity-${data.intensity}`);
-      }
-
-      country.addEventListener('click', function() {
-        const countryId = this.id;
-        const data = countryData[countryId];
-
-        if (data) {
-          updateCountryDetails(data);
-          // Remove previous selection
-          document.querySelectorAll('.active-country').forEach(c => c.classList.remove('selected'));
-          // Add selection to clicked country
-          this.classList.add('selected');
-        }
-      });
-
-      country.addEventListener('mouseenter', function() {
-        const countryId = this.id;
-        const data = countryData[countryId];
-        if (data) {
-          updateCountryDetails(data);
-        }
-      });
-    });
-
-    // Set default country (Ghana)
-    updateCountryDetails(countryData.ghana);
-    document.getElementById('ghana').classList.add('selected');
+    // Initialize the Africa Map using the external class
+    const africaMap = new AfricaMap('africaMap', countryData);
+    return africaMap; // Return instance for potential future use
   }
 
   function updateCountryDetails(data) {
@@ -906,12 +881,25 @@
   // Initialize on page load
   document.addEventListener('DOMContentLoaded', function() {
     updateCharts();
-    initializeWorldMap();
+    const africaMap = initializeWorldMap();
 
     // Add event listeners for selectors
     document.getElementById('monthSelect').addEventListener('change', updateCharts);
     document.getElementById('yearSelect').addEventListener('change', updateCharts);
+
+    // Listen for country selection events from the map
+    document.addEventListener('countrySelected', function(event) {
+      const countryData = event.detail.country;
+      console.log('Country selected for analytics:', countryData.name);
+
+      // Could update charts with country-specific data here
+      // For now, just log the selection
+    });
   });
 </script>
+
+<!-- External JavaScript files -->
+<script src="africa-map.js"></script>
+
 </body>
 </html>
