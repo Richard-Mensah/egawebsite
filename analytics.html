@@ -93,6 +93,7 @@
   .time-selector label {
     font-weight: 600;
     color: var(--navy);
+    white-space: nowrap;
   }
 
   .time-selector select {
@@ -103,6 +104,7 @@
     cursor: pointer;
     background: white;
     transition: all 0.3s;
+    min-width: 140px;
   }
 
   .time-selector select:focus {
@@ -146,66 +148,136 @@
     margin-bottom: 1rem;
   }
 
-  /* WORLD HEATMAP */
+  /* WORLD MAP */
   .world-map-container {
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
   }
 
-  .world-regions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .region-card {
-    background: linear-gradient(135deg, #f0f0f0 0%, #fafafa 100%);
-    padding: 1.5rem;
+  .world-map-wrapper {
+    background: #f8f9fa;
     border-radius: 12px;
-    text-align: center;
-    border-left: 4px solid var(--gold);
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+  }
+
+  .world-map-svg {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  }
+
+  .country {
+    fill: #e0e0e0;
+    stroke: #fff;
+    stroke-width: 1;
+    cursor: pointer;
     transition: all 0.3s ease;
   }
 
-  .region-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  .country:hover {
+    stroke-width: 2;
+    stroke: var(--gold);
   }
 
-  .region-name {
-    font-weight: 700;
+  .active-country {
+    fill: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  .active-country.intensity-5 { fill: #c62828; }
+  .active-country.intensity-4 { fill: #e57373; }
+  .active-country.intensity-3 { fill: #ffb74d; }
+  .active-country.intensity-2 { fill: #81c784; }
+  .active-country.intensity-1 { fill: #e0e0e0; }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+  }
+
+  .country-details-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--gold);
+  }
+
+  .country-info h4 {
     color: var(--navy);
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
   }
 
-  .region-stats {
-    display: flex;
-    justify-content: space-around;
+  .country-stats {
+    display: grid;
     gap: 1rem;
-    margin-top: 1rem;
   }
 
-  .region-stat {
-    font-size: 0.9rem;
-    color: #666;
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(201,168,76,0.05);
+    border-radius: 8px;
   }
 
-  .region-stat-value {
+  .stat-label {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .stat-value {
     font-weight: 700;
     color: var(--gold);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 
-  .heat-intensity-1 { border-left-color: #ffebee; background: #ffebee; }
-  .heat-intensity-2 { border-left-color: #ffcdd2; background: #ffcdd2; }
-  .heat-intensity-3 { border-left-color: #ef9a9a; background: #ef9a9a; }
-  .heat-intensity-4 { border-left-color: #e57373; background: #e57373; }
-  .heat-intensity-5 { border-left-color: #c62828; background: #c62828; color: white; }
-  .heat-intensity-5 .region-name,
-  .heat-intensity-5 .region-stat { color: white; }
-  .heat-intensity-5 .region-stat-value { color: #ffeb3b; }
+  .map-legend {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(0,0,0,0.02);
+    border-radius: 8px;
+  }
+
+  .map-legend h4 {
+    color: var(--navy);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .legend-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .intensity-5 { background: #c62828; }
+  .intensity-4 { background: #e57373; }
+  .intensity-3 { background: #ffb74d; }
+  .intensity-2 { background: #81c784; }
+  .intensity-1 { background: #e0e0e0; }
 
   /* LEGEND */
   .chart-legend {
@@ -347,18 +419,27 @@
     <div class="time-selector">
       <label for="monthSelect">📅 Select Period:</label>
       <select id="monthSelect" onchange="updateCharts()">
-        <option value="jan">January 2024</option>
-        <option value="feb">February 2024</option>
-        <option value="mar">March 2024</option>
-        <option value="apr" selected>April 2024</option>
-        <option value="may">May 2024</option>
-        <option value="jun">June 2024</option>
-        <option value="jul">July 2024</option>
-        <option value="aug">August 2024</option>
-        <option value="sep">September 2024</option>
-        <option value="oct">October 2024</option>
-        <option value="nov">November 2024</option>
-        <option value="dec">December 2024</option>
+        <option value="jan">January</option>
+        <option value="feb">February</option>
+        <option value="mar">March</option>
+        <option value="apr" selected>April</option>
+        <option value="may">May</option>
+        <option value="jun">June</option>
+        <option value="jul">July</option>
+        <option value="aug">August</option>
+        <option value="sep">September</option>
+        <option value="oct">October</option>
+        <option value="nov">November</option>
+        <option value="dec">December</option>
+      </select>
+      <select id="yearSelect" onchange="updateCharts()">
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024" selected>2024</option>
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
       </select>
     </div>
 
@@ -386,61 +467,85 @@
         </div>
       </div>
 
-      <!-- WORLD HEATMAP -->
+      <!-- WORLD MAP -->
       <div class="chart-card">
-        <h2>🌍 <span>Global Impact Heatmap</span></h2>
-        <p style="color: #666; margin-bottom: 1.5rem;">Where youth have been transformed by EGA (color intensity = impact level)</p>
+        <h2>🌍 <span>Global Impact Map</span></h2>
+        <p style="color: #666; margin-bottom: 1.5rem;">Interactive world map showing EGA's reach and impact intensity</p>
         <div class="world-map-container">
-          <div class="world-regions">
-            <div class="region-card heat-intensity-5">
-              <div class="region-name">🇬🇭 Ghana</div>
-              <div class="region-stats">
-                <div class="region-stat">Youth<br><span class="region-stat-value">1,200</span></div>
-                <div class="region-stat">Support<br><span class="region-stat-value">486</span></div>
-              </div>
-            </div>
-            <div class="region-card heat-intensity-4">
-              <div class="region-name">🇳🇬 Nigeria</div>
-              <div class="region-stats">
-                <div class="region-stat">Youth<br><span class="region-stat-value">856</span></div>
-                <div class="region-stat">Support<br><span class="region-stat-value">342</span></div>
-              </div>
-            </div>
-            <div class="region-card heat-intensity-3">
-              <div class="region-name">🇰🇪 Kenya</div>
-              <div class="region-stats">
-                <div class="region-stat">Youth<br><span class="region-stat-value">434</span></div>
-                <div class="region-stat">Support<br><span class="region-stat-value">178</span></div>
-              </div>
-            </div>
-            <div class="region-card heat-intensity-2">
-              <div class="region-name">🇨🇲 Cameroon</div>
-              <div class="region-stats">
-                <div class="region-stat">Youth<br><span class="region-stat-value">218</span></div>
-                <div class="region-stat">Support<br><span class="region-stat-value">89</span></div>
-              </div>
-            </div>
-            <div class="region-card heat-intensity-2">
-              <div class="region-name">🇷🇼 Rwanda</div>
-              <div class="region-stats">
-                <div class="region-stat">Youth<br><span class="region-stat-value">84</span></div>
-                <div class="region-stat">Support<br><span class="region-stat-value">34</span></div>
-              </div>
-            </div>
-            <div class="region-card heat-intensity-1">
-              <div class="region-name">🇺🇬 Uganda</div>
-              <div class="region-stats">
-                <div class="region-stat">Youth<br><span class="region-stat-value">55</span></div>
-                <div class="region-stat">Support<br><span class="region-stat-value">21</span></div>
+          <div class="world-map-wrapper">
+            <svg viewBox="0 0 1000 500" class="world-map-svg">
+              <!-- Africa -->
+              <g class="continent africa">
+                <path id="ghana" class="country active-country" d="M450 280 L470 280 L470 300 L450 300 Z" data-country="Ghana" data-youth="1200" data-support="486" data-intensity="5"></path>
+                <path id="nigeria" class="country active-country" d="M430 270 L450 270 L450 290 L430 290 Z" data-country="Nigeria" data-youth="856" data-support="342" data-intensity="4"></path>
+                <path id="kenya" class="country active-country" d="M480 320 L500 320 L500 340 L480 340 Z" data-country="Kenya" data-youth="434" data-support="178" data-intensity="3"></path>
+                <path id="cameroon" class="country active-country" d="M420 280 L440 280 L440 300 L420 300 Z" data-country="Cameroon" data-youth="218" data-support="89" data-intensity="2"></path>
+                <path id="rwanda" class="country active-country" d="M470 310 L480 310 L480 320 L470 320 Z" data-country="Rwanda" data-youth="84" data-support="34" data-intensity="2"></path>
+                <path id="uganda" class="country active-country" d="M470 300 L480 300 L480 310 L470 310 Z" data-country="Uganda" data-youth="55" data-support="21" data-intensity="1"></path>
+              </g>
+
+              <!-- Simplified world map paths for other continents -->
+              <g class="continent other">
+                <!-- North America -->
+                <path d="M100 150 L200 150 L200 200 L150 200 L100 180 Z" class="country inactive"></path>
+                <!-- South America -->
+                <path d="M200 250 L250 250 L250 350 L200 350 Z" class="country inactive"></path>
+                <!-- Europe -->
+                <path d="M400 120 L500 120 L500 150 L400 150 Z" class="country inactive"></path>
+                <!-- Asia -->
+                <path d="M550 100 L750 100 L750 200 L550 200 Z" class="country inactive"></path>
+                <!-- Oceania -->
+                <path d="M700 350 L800 350 L800 400 L700 400 Z" class="country inactive"></path>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Country Details Panel -->
+          <div class="country-details-panel" id="countryDetails">
+            <div class="country-info">
+              <h4 id="countryName">Select a country</h4>
+              <div class="country-stats">
+                <div class="stat-item">
+                  <span class="stat-label">Youth Mentored:</span>
+                  <span class="stat-value" id="countryYouth">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Support Actions:</span>
+                  <span class="stat-value" id="countrySupport">-</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Impact Level:</span>
+                  <span class="stat-value" id="countryIntensity">-</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0,0,0,0.02); border-radius: 8px;">
-          <small style="color: #666;">
-            <strong style="color: var(--navy);">Heat Map Legend:</strong><br>
-            🔴 High Impact (1,000+ youth) | 🟠 Strong Growth (400-1,000) | 🟡 Growing (100-400) | 🟢 Emerging (<100)
-          </small>
+
+        <div class="map-legend">
+          <h4>Impact Intensity Scale</h4>
+          <div class="legend-items">
+            <div class="legend-item">
+              <div class="legend-color intensity-5"></div>
+              <span>High Impact (1,000+ youth)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color intensity-4"></div>
+              <span>Strong Growth (400-1,000)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color intensity-3"></div>
+              <span>Growing (100-400)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color intensity-2"></div>
+              <span>Emerging (10-100)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color intensity-1"></div>
+              <span>Starting (<10)</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -522,7 +627,7 @@
 
 <script src="scripts.js"></script>
 <script>
-  // Monthly data for growth metrics
+  // Monthly data for growth metrics (simplified for demo)
   const monthlyData = {
     jan: { mentored: 189, support: 75, programs: 8 },
     feb: { mentored: 245, support: 98, programs: 10 },
@@ -545,14 +650,32 @@
 
   let chart = null;
 
+  // Country data for world map
+  const countryData = {
+    ghana: { name: 'Ghana', youth: 1200, support: 486, intensity: 5 },
+    nigeria: { name: 'Nigeria', youth: 856, support: 342, intensity: 4 },
+    kenya: { name: 'Kenya', youth: 434, support: 178, intensity: 3 },
+    cameroon: { name: 'Cameroon', youth: 218, support: 89, intensity: 2 },
+    rwanda: { name: 'Rwanda', youth: 84, support: 34, intensity: 2 },
+    uganda: { name: 'Uganda', youth: 55, support: 21, intensity: 1 }
+  };
+
   function updateCharts() {
     const selectedMonth = document.getElementById('monthSelect').value;
+    const selectedYear = document.getElementById('yearSelect').value;
+
+    // For demo purposes, we'll use the same data regardless of year
+    // In a real application, you'd fetch data based on year/month combination
     const monthIndex = Object.keys(monthlyData).indexOf(selectedMonth);
 
     // Update metric cards with selected month data
     document.getElementById('totalMentored').textContent = monthlyData[selectedMonth].mentored.toLocaleString();
     document.getElementById('activePrograms').textContent = monthlyData[selectedMonth].programs;
     document.getElementById('supportActions').textContent = monthlyData[selectedMonth].support.toLocaleString();
+
+    // Update chart title to reflect selected period
+    const periodTitle = `${months[monthIndex]} ${selectedYear}`;
+    document.querySelector('.chart-card h2 span').textContent = `Growth Trajectory - ${periodTitle}`;
 
     // Destroy old chart if it exists
     if (chart) {
@@ -634,7 +757,12 @@
             titleFont: { size: 14, weight: 'bold' },
             bodyFont: { size: 13 },
             borderColor: 'rgba(255,255,255,0.2)',
-            borderWidth: 1
+            borderWidth: 1,
+            callbacks: {
+              title: function(context) {
+                return `${context[0].label} ${selectedYear}`;
+              }
+            }
           }
         },
         scales: {
@@ -669,8 +797,63 @@
     }
   }
 
+  // World map interaction
+  function initializeWorldMap() {
+    const countries = document.querySelectorAll('.active-country');
+
+    countries.forEach(country => {
+      country.addEventListener('click', function() {
+        const countryId = this.id;
+        const data = countryData[countryId];
+
+        if (data) {
+          updateCountryDetails(data);
+          // Remove previous selection
+          document.querySelectorAll('.active-country').forEach(c => c.classList.remove('selected'));
+          // Add selection to clicked country
+          this.classList.add('selected');
+        }
+      });
+
+      country.addEventListener('mouseenter', function() {
+        const countryId = this.id;
+        const data = countryData[countryId];
+        if (data) {
+          updateCountryDetails(data);
+        }
+      });
+    });
+
+    // Set default country (Ghana)
+    updateCountryDetails(countryData.ghana);
+    document.getElementById('ghana').classList.add('selected');
+  }
+
+  function updateCountryDetails(data) {
+    document.getElementById('countryName').textContent = data.name;
+    document.getElementById('countryYouth').textContent = data.youth.toLocaleString();
+    document.getElementById('countrySupport').textContent = data.support.toLocaleString();
+
+    const intensityLabels = {
+      5: 'High Impact',
+      4: 'Strong Growth',
+      3: 'Growing',
+      2: 'Emerging',
+      1: 'Starting'
+    };
+
+    document.getElementById('countryIntensity').textContent = intensityLabels[data.intensity] || 'Unknown';
+  }
+
   // Initialize on page load
-  document.addEventListener('DOMContentLoaded', updateCharts);
+  document.addEventListener('DOMContentLoaded', function() {
+    updateCharts();
+    initializeWorldMap();
+
+    // Add event listeners for selectors
+    document.getElementById('monthSelect').addEventListener('change', updateCharts);
+    document.getElementById('yearSelect').addEventListener('change', updateCharts);
+  });
 </script>
 </body>
 </html>
