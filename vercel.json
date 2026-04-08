@@ -1,0 +1,11 @@
+{
+  "buildCommand": "echo 'Static site - no build needed'",
+  "outputDirectory": ".",
+  "public": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/EGA_Website_index.html"
+    }
+  ]
+}
